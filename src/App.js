@@ -37,21 +37,16 @@ function App() {
   function deleteTodo(){
     let newTodo=[...todos];
     newTodo=newTodo.filter(Checktodo=>!Checktodo.complete);
-    for(let i=0;i<newTodo.length;i++){
-      console.log("Check number2 "+newTodo[i].complete);
+    for( let i=0;i<todos.length;i++){
+      console.log(todos[i].id)
+      console.log("the id is "+todos[0].name)
+      if(todos[i].complete==true){
+        ref
+        .doc(todos[i].id)
+        .delete()
     }
-
-    for( var items in todos){
-      ref
-      .doc(items.id)
-      .delete()
-    }
-    for( var i in newTodo){
-      ref
-      .doc(i.id)
-      .set(i)
-    }
-      setTodos(newTodo);
+  }
+    setTodos(newTodo);
     
   }
 
@@ -77,7 +72,7 @@ function getTasks(){
     });
     tasks.map((task)=>(
       setTodos(prevTodos => {
-      return [...prevTodos, { id: task.id, name: task.title, complete: task.check }]
+      return [...prevTodos, { id: task.id, name: task.name, complete: task.check }]
     })))
     setTasks(items);
     setLoading(false);
