@@ -63,20 +63,15 @@ function App() {
 
 
 function getTasks(){
-  setLoading(true);
-  ref.onSnapshot((querySnapshot)=>{
-    const items=[];
-    querySnapshot.forEach((doc)=>{
-      items.push(doc.data());
-      console.log(doc.data);
-    });
-    tasks.map((task)=>(
-      setTodos(prevTodos => {
-      return [...prevTodos, { id: task.id, name: task.name, complete: task.check }]
-    })))
-    setTasks(items);
-    setLoading(false);
-  });
+  ref
+.get()
+.then(querySnapshot => {
+  const data = querySnapshot.docs.map(doc => doc.data());
+  console.log(data); 
+  
+  setTodos(data);
+
+});
 }
 
 useEffect(()=>{
@@ -89,13 +84,7 @@ useEffect(()=>{
    
   return (
     <>
-    <h1>WORKING!</h1>
-     {tasks.map((task)=>(
-     <div><h2>{task.title}</h2>          
-      <p>{task.check}</p>
-      </div>
-      )
-    )}
+   
  
 
 
